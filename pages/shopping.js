@@ -1,17 +1,14 @@
 import { useState } from "react";
 
-import { updateGenericFoodList, getGenericFoodList, sendDataToDB } from "../src/foodData";
+import { updateGenericFoodList, getGenericFoodList, updateUserBoughtList } from "../src/foodData";
 import Link from "next/link";
 import Router from "next/router";
 import Image from "next/image";
 import { Footer } from "./../src/styledComponents/reusables";
 import { useAuth } from "../src/useAuth";
+import { convertObjectToNestArray } from "../src/utils";
 
 export async function getStaticProps() {
-  //  for My Hoa <3
-  const { user } = useAuth();
-  const userId = user.uid;
-
   try {
     const updateFoodList = await updateGenericFoodList();
     const genericFoodList = await getGenericFoodList();
@@ -79,7 +76,7 @@ export default function Home({ genericFoodList }) {
             </li>
           ))}
         </ul>
-        <button onClick={() => sendDataToDB(chosenItems)}>Submit</button>
+        <button onClick={() => updateUserBoughtList(chosenItems)}>Submit</button>
       </div>
 
       <Footer>

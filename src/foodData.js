@@ -13,7 +13,7 @@ export function updateGenericFoodList() {
     .then(() => {
       console.log("successfully updated generic food list");
     })
-    .catch((error) => {
+    .catch(error => {
       console.log("Error writing document: ", error);
     });
 }
@@ -23,19 +23,19 @@ export function getGenericFoodList() {
     .collection("foodAPI")
     .doc("testFoodData")
     .get()
-    .then((doc) => {
+    .then(doc => {
       if (doc.exists) {
         return doc.data();
       } else {
         console.log("no such document!");
       }
     })
-    .catch((error) => {
+    .catch(error => {
       console.log("Error writing document: ", error);
     });
 }
 
-export function sendDataToDB(itemsChosen) {
+export function updateUserBoughtList(itemsChosen) {
   return db
     .collection("users")
     .doc("001")
@@ -46,19 +46,15 @@ export function sendDataToDB(itemsChosen) {
       console.log("successfully updated user food list");
       const wasteItems = Object.keys(itemsChosen);
       const wasteDataObject = {};
-      wasteItems.forEach((item) => {
+      wasteItems.forEach(item => {
         wasteDataObject[item] = 0;
       });
-      db.collection("users")
-        .doc("001")
-        .collection("food")
-        .doc("week1-waste")
-        .set(wasteDataObject);
+      db.collection("users").doc("001").collection("food").doc("week1-waste").set(wasteDataObject);
     })
     .then(() => {
       console.log("successfully created initial user waste food list");
     })
-    .catch((error) => {
+    .catch(error => {
       console.log("Error writing document: ", error);
     });
 }
@@ -70,7 +66,7 @@ export function getUserWasteFoodList() {
     .collection("food")
     .doc("week1-waste")
     .get()
-    .then((doc) => {
+    .then(doc => {
       if (doc.exists) {
         console.log(doc.data());
         return doc.data();
@@ -78,7 +74,7 @@ export function getUserWasteFoodList() {
         console.log("no such document!");
       }
     })
-    .catch((error) => {
+    .catch(error => {
       console.log("Error writing document: ", error);
     });
 }
@@ -93,7 +89,7 @@ export function updateUserWasteList(updatedWasteList) {
     .then(() => {
       console.log("successfully updated user waste food list");
     })
-    .catch((error) => {
+    .catch(error => {
       console.log("Error writing document: ", error);
     });
 }
