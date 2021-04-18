@@ -1,3 +1,3 @@
 export function convertObjectToNestArray(obj) {
-  return Object.keys(obj).map((key) => [key, obj[key]]);
+  return Object.keys(obj).map(key => [key, obj[key]]);
 }
