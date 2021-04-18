@@ -32,20 +32,14 @@ export default function Signup() {
         </div>
         <div className={styles.user__box}>
           <label htmlFor='password'></label>
-          <input
-            required
-            id='password'
-            name='password'
-            type='password'
-              setPassword(e.target.value);
-            }}
-          />
+          <input required id='password' name='password' type='password' onChange={e => setPassword(e.target.value)} />
         </div>
         <button type='submit'>Log in</button>
         <Link href='signup'>
           <a className={styles.link}>signup instead</a>
-        </Link>d{" "}
-     </form>
+        </Link>
+        d{" "}
+      </form>
     </div>
   );
 }

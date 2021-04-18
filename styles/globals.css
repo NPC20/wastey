@@ -28,7 +28,12 @@ body {
 .details {
   display: flex;
   flex-direction: row;
-  @media (max-width: 400px) {
+  align-items: center;
+}
+
+@media (max-width: 600px) {
+  .details {
+    flex-wrap: wrap;
     flex-direction: column;
   }
 }

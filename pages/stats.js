@@ -1,11 +1,9 @@
 import { useState, useEffect } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import { HomeTabs, StyledFooter } from "./../src/styledComponents/reusables";
 import Charts from "../components/Charts";
 import { getUserBoughtFoodList, getUserWasteFoodList } from "../src/foodData";
 import { useAuth } from "../src/useAuth";
 import { convertObjectToNestArray } from "../src/utils";
+import Footer from "../components/Footer";
 
 const data = [
   { name: "Food wasted", value: 300 },
@@ -13,34 +11,34 @@ const data = [
 ];
 
 export default function Home() {
-  const [boughtItems, setBoughtItems] = useState();
-  const [wasteItems, setWasteItems] = useState();
-  // const [data, setData] = useState();
+  // const [boughtItems, setBoughtItems] = useState();
+  // const [wasteItems, setWasteItems] = useState();
+  // // const [data, setData] = useState();
 
-  const { user, loading } = useAuth();
+  // const { user, loading } = useAuth();
 
-  useEffect(async () => {
-    if (user) {
-      const boughtList = await getUserBoughtFoodList(user.uid);
-      const wasteList = await getUserWasteFoodList(user.uid);
+  // useEffect(async () => {
+  //   if (user) {
+  //     const boughtList = await getUserBoughtFoodList(user.uid);
+  //     const wasteList = await getUserWasteFoodList(user.uid);
 
-      if (boughtList) {
-        setBoughtItems(boughtList);
-      }
-      if (wasteList) {
-        setWasteItems(wasteList);
-      }
-    }
-  }, [user]);
+  //     if (boughtList) {
+  //       setBoughtItems(boughtList);
+  //     }
+  //     if (wasteList) {
+  //       setWasteItems(wasteList);
+  //     }
+  //   }
+  // }, [user]);
 
-  useEffect(() => {
-    if (boughtItems && wasteItems) {
-      const bought = convertObjectToNestArray(boughtItems);
-      const waste = convertObjectToNestArray(wasteItems);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (boughtItems && wasteItems) {
+  //     const bought = convertObjectToNestArray(boughtItems);
+  //     const waste = convertObjectToNestArray(wasteItems);
+  //   }
+  // }, []);
 
-  console.log(boughtItems, wasteItems);
+  // console.log(boughtItems, wasteItems);
 
   return (
     <div className='resultCont'>
@@ -87,14 +85,7 @@ export default function Home() {
           ...
         </table>
       </div>
-      <StyledFooter>
-        <Link href='/'>
-          <Image src='/homeButton.svg' alt='img' width={100} height={100} layout='fixed' />
-        </Link>
-        <Link href='/'>
-          <Image src='/logoutButton.svg' alt='img' width={100} height={100} layout='fixed' />
-        </Link>
-      </StyledFooter>
+      <Footer />
     </div>
   );
 }
