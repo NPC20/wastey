@@ -5,17 +5,17 @@ import "firebase/analytics";
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-	apiKey: process.env.API_KEY,
-	authDomain: process.env.AUTH_DOMAIN,
-	projectId: process.env.PROJECT_ID,
-	storageBucket: process.env.STORAGE_BUCKET,
-	messagingSenderId: process.env.MESSAGE_SENDER_ID,
-	appId: process.env.APP_ID,
-	measurementId: process.env.MEASUREMENT_ID,
-};
+	apiKey: "AIzaSyAcxB27WsdrYWFy_0Rbwp5AKqcuCPDwKWE",
+	authDomain: "namepending-cb301.firebaseapp.com",
+	projectId: "namepending-cb301",
+	storageBucket: "namepending-cb301.appspot.com",
+	messagingSenderId: "227215591536",
+	appId: "1:227215591536:web:14599995a2678b79778cb5",
+	measurementId: "G-DZYJC3XSM7"
+  };
 
-console.log(process.env.API_KEY)
-let app;
+console.log(process.env.NEXT_PUBLIC_API_KEY)
+export let app;
 if (!firebase.apps.length) {
     app = firebase.initializeApp(firebaseConfig);
 } else {
@@ -25,4 +25,5 @@ if (!firebase.apps.length) {
 
 // initialize fire base
 export const db = firebase.firestore();
-export const auth = app.auth();
+export const auth = app.auth;
+
