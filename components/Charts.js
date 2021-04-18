@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
 import { PieChart, Pie, Cell, Tooltip } from "recharts";
 
-const COLORS = ["#0088FE", "#00C49F"];
+const COLORS = ["#f6af6f", "#00C49F"];
 
 const RADIAN = Math.PI / 180;
 const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
