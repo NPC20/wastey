@@ -14,9 +14,13 @@ import styled from 'styled-components';
  */
 export default React.forwardRef(Button);
 
-export function Button(props, ref) {
+export function Button(props, ref, href) {
 
-	return <S.Button>{getChildren()}</S.Button>;
+	return (		
+		<S.Button href={href} ref={ref}>
+			{getChildren()}
+		</S.Button>
+	)
 
 	/**
 	 *

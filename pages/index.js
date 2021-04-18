@@ -3,9 +3,11 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import Button from '../components/Button';
+import HomeBtn from '../components/HomeBtn';
+import LogoutBtn from '../components/LogoutBtn';
 import { HomeTabs, Footer } from './../src/styledComponents/reusables';
 
-export default function Home(props) {
+export default function Home() {
   return (
     <div className="mainCont">
       <Image
@@ -24,26 +26,28 @@ export default function Home(props) {
       <Link href="/stats" passHref>
         <Button>stats</Button>
       </Link>
-      {/* <Footer>
-        <Link href="/">
-          <Image
+      <Footer>
+        <Link href="/#">
+          <HomeBtn/>
+          {/* <Image
             src="/homeButton.svg"
             alt="img"
             width={100}
             height={100}
             layout="fixed"
-          />
+          /> */}
         </Link>
         <Link href="/">
-          <Image
+          <LogoutBtn />
+          {/* <Image
             src="/logoutButton.svg"
             alt="img"
             width={100}
             height={100}
             layout="fixed"
-          />
+          /> */}
         </Link>
-      </Footer> */}
+      </Footer>
     </div>
   );
 }
