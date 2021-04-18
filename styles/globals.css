@@ -19,7 +19,7 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
-  background-image: url("/results.svg");
+  background-image: url("/results.svg") no-repeat center center fixed;
 }
