@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useMemo, useEffect } from "react";
+import { updateGenericFoodList, getGenericFoodList, updateUserBoughtList, getUserBoughtFoodList } from "../src/foodData";
 import Link from "next/link";
 import Router from "next/router";
 import Image from "next/image";
@@ -7,16 +8,13 @@ import HomeBtn from '../components/HomeBtn';
 import LogoutBtn from '../components/LogoutBtn';
 import { useAuth } from "../src/useAuth";
 import { convertObjectToNestArray } from "../src/utils";
-import {
-  updateGenericFoodList,
-  getGenericFoodList,
-  sendDataToDB,
-} from "../src/foodData";
+import styles from "../styles/shopping.module.css";
 
 export async function getStaticProps() {
   try {
     const updateFoodList = await updateGenericFoodList();
     const genericFoodList = await getGenericFoodList();
+    
     return {
       props: { genericFoodList },
     };
@@ -26,8 +24,14 @@ export async function getStaticProps() {
 }
 
 export default function Home({ genericFoodList }) {
-  const [chosenItems, setChosenItems] = useState({});
-  const chosenItemsArray = convertObjectToNestArray(chosenItems);
+  const [chosenItems, setChosenItems] = useState();  
+  const chosenItemsArray = useMemo(() => {
+    if (!chosenItems) {
+      return;
+    }
+    return convertObjectToNestArray(chosenItems);
+  }, [chosenItems]);
+
 
   const { user, loading } = useAuth();
 
@@ -35,12 +39,21 @@ export default function Home({ genericFoodList }) {
   //   typeof window !== "undefined" && Router.push("/signup");
   // }
 
+  useEffect(async () => {
+    if (user) {
+      const boughtList = await getUserBoughtFoodList(user.uid);
+      if (boughtList) {
+        setChosenItems(boughtList);
+      }
+    }
+  }, [user]);
+
   return (
     <div className='mainCont'>
       <Image src='/shoppingCart.svg' alt='img' width={100} height={100} layout='fixed' />
 
       <div>
-        <h1>FoodList</h1>
+        <h1 className={styles.center}>FoodList</h1>
         <form
           onSubmit={e => {
             e.preventDefault();
@@ -49,8 +62,8 @@ export default function Home({ genericFoodList }) {
             setChosenItems({ ...chosenItems, [itemName]: 0 });
           }}
         >
-          <input type='text' list='food' name='food' />
-          <button type='submit'>Add Item</button>
+          <input type='text' list='food' name='food' className={styles.search}/>
+          <button className={styles.addBtn} type='submit' >Add Item</button>
         </form>
         <datalist id='food'>
           {genericFoodList.fruit.map((list, index) => (
@@ -59,11 +72,12 @@ export default function Home({ genericFoodList }) {
             </option>
           ))}
         </datalist>
-        <ul>
-          {chosenItemsArray.map((keyVal, index) => (
-            <li key={index}>
+        <ul className={styles.list}>
+          {chosenItemsArray && chosenItemsArray.map((keyVal, index) => (
+            <li key={index} className={styles.listItem}>
               {keyVal[0]}
               <button
+                className={styles.qBtn}
                 onClick={() => {
                   setChosenItems({ ...chosenItems, [keyVal[0]]: keyVal[1] - 1 });
                 }}
@@ -72,6 +86,7 @@ export default function Home({ genericFoodList }) {
               </button>
               {keyVal[1]}
               <button
+                className={styles.qBtn}
                 onClick={() => {
                   setChosenItems({ ...chosenItems, [keyVal[0]]: keyVal[1] + 1 });
                 }}
@@ -80,17 +95,10 @@ export default function Home({ genericFoodList }) {
               </button>
             </li>
           ))}
-        </ul>
-        <button onClick={() => updateUserBoughtList(user.uid, chosenItems)}>Submit</button>
+        </ul>        
+        <button className={styles.submitBtn} onClick={() => updateUserBoughtList(user.uid, chosenItems)}>Submit</button>
       </div>
-      <Footer>
-        <Link href='/'>
-          <HomeBtn />
-        </Link>
-        <Link href='/' onClick={() => signout()}>
-          <LogoutBtn/>
-        </Link>
-      </Footer>
+      <Footer />
     </div>
   );
 }

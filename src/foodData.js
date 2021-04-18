@@ -35,7 +35,28 @@ export function getGenericFoodList() {
     });
 }
 
+export function getUserBoughtFoodList(userID) {
+  return db
+    .collection("users")
+    .doc(userID)
+    .collection("food")
+    .doc("week1")
+    .get()
+    .then(doc => {
+      if (doc.exists) {
+        console.log(doc.data());
+        return doc.data();
+      } else {
+        console.log("no such document!");
+      }
+    })
+    .catch(error => {
+      console.log("Error writing document: ", error);
+    });
+}
+
 export function updateUserBoughtList(userID, itemsChosen) {
+  console.log(itemsChosen)
   return db
     .collection("users")
     .doc(userID)
