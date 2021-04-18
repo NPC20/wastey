@@ -1,8 +1,8 @@
 import React from "react";
-import Link from 'next/link';
-import HomeBtn from '../components/HomeBtn';
-import LogoutBtn from '../components/LogoutBtn';
-import { StyledFooter } from './../src/styledComponents/reusables';
+import Link from "next/link";
+import HomeBtn from "../components/HomeBtn";
+import LogoutBtn from "../components/LogoutBtn";
+import { StyledFooter } from "./../src/styledComponents/reusables";
 import { useAuth } from "../src/useAuth";
 
 export default function Footer() {
@@ -14,8 +14,8 @@ export default function Footer() {
         <HomeBtn />
       </Link>
       <Link href='/' onClick={() => signout()} passHref>
-        <LogoutBtn/>
+        <LogoutBtn />
       </Link>
     </StyledFooter>
-  )
+  );
 }

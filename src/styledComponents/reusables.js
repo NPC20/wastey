@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const HomeTabs = styled.div`
   display: flex;
@@ -23,5 +23,5 @@ export const StyledFooter = styled.footer`
   position: fixed;
   bottom: 0;
   margin: 1rem;
-  background: white;
+  background: #fff9ea;
 `;

@@ -4,8 +4,8 @@ import Link from "next/link";
 import Router from "next/router";
 import Image from "next/image";
 import Footer from "../components/Footer";
-import HomeBtn from '../components/HomeBtn';
-import LogoutBtn from '../components/LogoutBtn';
+import HomeBtn from "../components/HomeBtn";
+import LogoutBtn from "../components/LogoutBtn";
 import { useAuth } from "../src/useAuth";
 import { convertObjectToNestArray } from "../src/utils";
 import styles from "../styles/shopping.module.css";
@@ -14,7 +14,7 @@ export async function getStaticProps() {
   try {
     const updateFoodList = await updateGenericFoodList();
     const genericFoodList = await getGenericFoodList();
-    
+
     return {
       props: { genericFoodList },
     };
@@ -24,14 +24,13 @@ export async function getStaticProps() {
 }
 
 export default function Home({ genericFoodList }) {
-  const [chosenItems, setChosenItems] = useState();  
+  const [chosenItems, setChosenItems] = useState();
   const chosenItemsArray = useMemo(() => {
     if (!chosenItems) {
       return;
     }
     return convertObjectToNestArray(chosenItems);
   }, [chosenItems]);
-
 
   const { user, loading } = useAuth();
 
@@ -62,8 +61,10 @@ export default function Home({ genericFoodList }) {
             setChosenItems({ ...chosenItems, [itemName]: 0 });
           }}
         >
-          <input type='text' list='food' name='food' className={styles.search}/>
-          <button className={styles.addBtn} type='submit' >Add Item</button>
+          <input type='text' list='food' name='food' className={styles.search} />
+          <button className={styles.addBtn} type='submit'>
+            Add Item
+          </button>
         </form>
         <datalist id='food'>
           {genericFoodList.fruit.map((list, index) => (
@@ -73,30 +74,33 @@ export default function Home({ genericFoodList }) {
           ))}
         </datalist>
         <ul className={styles.list}>
-          {chosenItemsArray && chosenItemsArray.map((keyVal, index) => (
-            <li key={index} className={styles.listItem}>
-              {keyVal[0]}
-              <button
-                className={styles.qBtn}
-                onClick={() => {
-                  setChosenItems({ ...chosenItems, [keyVal[0]]: keyVal[1] - 1 });
-                }}
-              >
-                -
-              </button>
-              {keyVal[1]}
-              <button
-                className={styles.qBtn}
-                onClick={() => {
-                  setChosenItems({ ...chosenItems, [keyVal[0]]: keyVal[1] + 1 });
-                }}
-              >
-                +
-              </button>
-            </li>
-          ))}
-        </ul>        
-        <button className={styles.submitBtn} onClick={() => updateUserBoughtList(user.uid, chosenItems)}>Submit</button>
+          {chosenItemsArray &&
+            chosenItemsArray.map((keyVal, index) => (
+              <li key={index} className={styles.listItem}>
+                {keyVal[0]}
+                <button
+                  className={styles.qBtn}
+                  onClick={() => {
+                    setChosenItems({ ...chosenItems, [keyVal[0]]: keyVal[1] - 1 });
+                  }}
+                >
+                  -
+                </button>
+                {keyVal[1]}
+                <button
+                  className={styles.qBtn}
+                  onClick={() => {
+                    setChosenItems({ ...chosenItems, [keyVal[0]]: keyVal[1] + 1 });
+                  }}
+                >
+                  +
+                </button>
+              </li>
+            ))}
+        </ul>
+        <button className={styles.submitBtn} onClick={() => updateUserBoughtList(user.uid, chosenItems)}>
+          Submit
+        </button>
       </div>
       <Footer />
     </div>
