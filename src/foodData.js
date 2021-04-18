@@ -35,10 +35,10 @@ export function getGenericFoodList() {
     });
 }
 
-export function getUserBoughtFoodList() {
+export function getUserBoughtFoodList(userID) {
   return db
     .collection("users")
-    .doc("001")
+    .doc(userID)
     .collection("food")
     .doc("week1")
     .get()
@@ -55,10 +55,11 @@ export function getUserBoughtFoodList() {
     });
 }
 
-export function updateUserBoughtList(itemsChosen) {
+export function updateUserBoughtList(userID, itemsChosen) {
+  console.log(itemsChosen)
   return db
     .collection("users")
-    .doc("001")
+    .doc(userID)
     .collection("food")
     .doc("week1")
     .set(itemsChosen)
@@ -69,7 +70,7 @@ export function updateUserBoughtList(itemsChosen) {
       wasteItems.forEach(item => {
         wasteDataObject[item] = 0;
       });
-      db.collection("users").doc("001").collection("food").doc("week1-waste").set(wasteDataObject);
+      db.collection("users").doc(userID).collection("food").doc("week1-waste").set(wasteDataObject);
     })
     .then(() => {
       console.log("successfully created initial user waste food list");
@@ -79,10 +80,10 @@ export function updateUserBoughtList(itemsChosen) {
     });
 }
 
-export function getUserWasteFoodList() {
+export function getUserWasteFoodList(userID) {
   return db
     .collection("users")
-    .doc("001")
+    .doc(userID)
     .collection("food")
     .doc("week1-waste")
     .get()
@@ -99,10 +100,10 @@ export function getUserWasteFoodList() {
     });
 }
 
-export function updateUserWasteList(updatedWasteList) {
+export function updateUserWasteList(userID, updatedWasteList) {
   return db
     .collection("users")
-    .doc("001")
+    .doc(userID)
     .collection("food")
     .doc("week1-waste")
     .set(updatedWasteList)

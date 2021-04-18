@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { updateGenericFoodList, getGenericFoodList, updateUserBoughtList, getUserBoughtFoodList } from "../src/foodData";
 import Link from "next/link";
 import Router from "next/router";
 import Image from "next/image";
-import { Footer } from "./../src/styledComponents/reusables";
+import Footer from "../components/Footer";
+import HomeBtn from '../components/HomeBtn';
+import LogoutBtn from '../components/LogoutBtn';
 import { useAuth } from "../src/useAuth";
 import { convertObjectToNestArray } from "../src/utils";
 import styles from "../styles/shopping.module.css";
@@ -12,24 +14,39 @@ export async function getStaticProps() {
   try {
     const updateFoodList = await updateGenericFoodList();
     const genericFoodList = await getGenericFoodList();
-    const userBoughtList = await getUserBoughtFoodList();
+    
     return {
-      props: { genericFoodList, userBoughtList },
+      props: { genericFoodList },
     };
   } catch (e) {
     console.log("uh oh", e);
   }
 }
 
-export default function Home({ genericFoodList, userBoughtList }) {
-  const [chosenItems, setChosenItems] = useState(userBoughtList);
-  const chosenItemsArray = convertObjectToNestArray(chosenItems);
+export default function Home({ genericFoodList }) {
+  const [chosenItems, setChosenItems] = useState();  
+  const chosenItemsArray = useMemo(() => {
+    if (!chosenItems) {
+      return;
+    }
+    return convertObjectToNestArray(chosenItems);
+  }, [chosenItems]);
+
 
   const { user, loading } = useAuth();
 
-  if (!user) {
-    typeof window !== "undefined" && Router.push("/signup");
-  }
+  // if (!user) {
+  //   typeof window !== "undefined" && Router.push("/signup");
+  // }
+
+  useEffect(async () => {
+    if (user) {
+      const boughtList = await getUserBoughtFoodList(user.uid);
+      if (boughtList) {
+        setChosenItems(boughtList);
+      }
+    }
+  }, [user]);
 
   return (
     <div className='mainCont'>
@@ -56,7 +73,7 @@ export default function Home({ genericFoodList, userBoughtList }) {
           ))}
         </datalist>
         <ul className={styles.list}>
-          {chosenItemsArray.map((keyVal, index) => (
+          {chosenItemsArray && chosenItemsArray.map((keyVal, index) => (
             <li key={index} className={styles.listItem}>
               {keyVal[0]}
               <button
@@ -78,18 +95,10 @@ export default function Home({ genericFoodList, userBoughtList }) {
               </button>
             </li>
           ))}
-        </ul>
-        <button className={styles.submitBtn} onClick={() => updateUserBoughtList(chosenItems)}>Submit</button>
+        </ul>        
+        <button className={styles.submitBtn} onClick={() => updateUserBoughtList(user.uid, chosenItems)}>Submit</button>
       </div>
-
-      <Footer>
-        <Link href='/'>
-          <Image src='/homeButton.svg' alt='img' width={100} height={100} layout='fixed' />
-        </Link>
-        <Link href='/'>
-          <Image src='/logoutButton.svg' alt='img' width={100} height={100} layout='fixed' />
-        </Link>
-      </Footer>
+      <Footer />
     </div>
   );
 }

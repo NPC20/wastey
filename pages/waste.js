@@ -1,39 +1,43 @@
-import { useState } from "react";
+import { useState, useEffect, useMemo } from "react";
+import Router from "next/router";
+import Link from 'next/link';
+import Image from 'next/image';
+import Footer from "../components/Footer";
 import { getUserWasteFoodList, updateUserWasteList } from "../src/foodData";
 import { convertObjectToNestArray } from "../src/utils";
-import Link from "next/link";
-import Image from "next/image";
-import { HomeTabs, Footer } from "./../src/styledComponents/reusables";
 import styles from "../styles/shopping.module.css";
+import { useAuth } from "../src/useAuth";
 
-export async function getStaticProps() {
-  try {
-    const userWasteList = await getUserWasteFoodList();
-    return {
-      props: { userWasteList },
-    };
-  } catch (e) {
-    console.log("uh oh", e);
-  }
-}
+export default function Home() {
+  const [wasteItems, setWasteItems] = useState();
+  const wasteItemArray = useMemo(() => {
+    if (!wasteItems) {
+      return;
+    }
+    return convertObjectToNestArray(wasteItems);
+  }, [wasteItems]);
 
-export default function Home({ userWasteList }) {
-  const [wasteItems, setWasteItems] = useState(userWasteList);
-  const wasteItemArray = convertObjectToNestArray(wasteItems);
-  console.log(wasteItemArray);
-  console.log(wasteItems);
+  const { user, loading } = useAuth();
+
+  // if (!user) {
+  //   typeof window !== "undefined" && Router.push("/signup");
+  // }
+
+  useEffect(async () => {
+    if (user) {
+      const userWasteList = await getUserWasteFoodList(user.uid);
+      if (userWasteList) {
+        setWasteItems(userWasteList);
+      }
+    }
+  }, [user]);
+
   return (
-    <div className="mainCont">
-      <Image
-        src="/binIcon.svg"
-        alt="img"
-        width={100}
-        height={100}
-        layout="fixed"
-      />
+    <div className='mainCont'>
+      <Image src='/binIcon.svg' alt='img' width={100} height={100} layout='fixed' />
       <h1>Wasted Food</h1>
       <ul className={styles.list}>
-        {wasteItemArray.map((keyVal, index) => (
+        {wasteItemArray && wasteItemArray.map((keyVal, index) => (
           <li key={index} className={styles.listItem}>
             {keyVal[0]}
             <button
@@ -64,33 +68,13 @@ export default function Home({ userWasteList }) {
       </ul>
       <button
         className={styles.submitBtn}
-        onClick={() => {
-          updateUserWasteList(wasteItems);
+        onClick={() => {          
+          updateUserWasteList(user.uid, wasteItems);
         }}
       >
         Update Waste List
       </button>
-
-      <Footer>
-        <Link href="/">
-          <Image
-            src="/homeButton.svg"
-            alt="img"
-            width={100}
-            height={100}
-            layout="fixed"
-          />
-        </Link>
-        <Link href="/">
-          <Image
-            src="/logoutButton.svg"
-            alt="img"
-            width={100}
-            height={100}
-            layout="fixed"
-          />
-        </Link>
-      </Footer>
+        <Footer />
     </div>
   );
 }

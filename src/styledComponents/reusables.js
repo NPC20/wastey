@@ -12,7 +12,7 @@ export const HomeTabs = styled.div`
   margin: 1rem;
 `;
 
-export const Footer = styled.div`
+export const StyledFooter = styled.footer`
   display: flex;
   justify-content: center;
   align-items: center;
