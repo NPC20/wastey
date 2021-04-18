@@ -2,7 +2,7 @@ import React from 'react';
 
 function HomeButton(props, ref) {
   return (
-    <svg width="81" height="81" viewBox="0 0 81 81" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg {...props} ref={ref} width="81" height="81" viewBox="0 0 81 81" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g id="home-button">
         <path id="Vector" 
           d="M68.85 20.25H12.15C7.69505 20.25 4.05005 23.895 4.05005 28.35V52.65C4.05005 57.105 7.69505 60.75 12.15 60.75H68.85C73.305 60.75 76.95 57.105 76.95 52.65V28.35C76.95 23.895 73.305 20.25 68.85 20.25ZM72.9 48.6C72.9 51.03 71.28 52.65 68.85 52.65H12.15C9.72005 52.65 8.10005 51.03 8.10005 48.6V28.35C8.10005 25.92 9.72005 24.3 12.15 24.3H68.85C71.28 24.3 72.9 25.92 72.9 28.35V48.6Z" 
