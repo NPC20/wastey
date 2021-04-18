@@ -37,8 +37,6 @@ export default function Signup() {
             id='password'
             name='password'
             type='password'
-            placeholder='Password'
-            onChange={e => {
               setPassword(e.target.value);
             }}
           />
@@ -46,8 +44,8 @@ export default function Signup() {
         <button type='submit'>Log in</button>
         <Link href='signup'>
           <a className={styles.link}>signup instead</a>
-        </Link>
-      </form>
+        </Link>d{" "}
+     </form>
     </div>
   );
 }
