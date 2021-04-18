@@ -1,17 +1,14 @@
 import { useState } from "react";
 
-import { updateGenericFoodList, getGenericFoodList, sendDataToDB } from "../src/foodData";
+import { updateGenericFoodList, getGenericFoodList, updateUserBoughtList } from "../src/foodData";
 import Link from "next/link";
 import Router from "next/router";
 import Image from "next/image";
 import { Footer } from "./../src/styledComponents/reusables";
 import { useAuth } from "../src/useAuth";
+import { convertObjectToNestArray } from "../src/utils";
 
 export async function getStaticProps() {
-  //  for My Hoa <3
-  const { user } = useAuth();
-  const userId = user.uid;
-
   try {
     const updateFoodList = await updateGenericFoodList();
     const genericFoodList = await getGenericFoodList();
@@ -25,6 +22,7 @@ export async function getStaticProps() {
 
 export default function Home({ genericFoodList }) {
   const [chosenItems, setChosenItems] = useState({});
+  const chosenItemsArray = convertObjectToNestArray(chosenItems);
 
   const { user, loading } = useAuth();
 
@@ -57,30 +55,28 @@ export default function Home({ genericFoodList }) {
           ))}
         </datalist>
         <ul>
-          {Object.keys(chosenItems)
-            .map(key => [key, chosenItems[key]])
-            .map((keyVal, index) => (
-              <li key={index}>
-                {keyVal[0]}
-                <button
-                  onClick={() => {
-                    setChosenItems({ ...chosenItems, [keyVal[0]]: keyVal[1] - 1 });
-                  }}
-                >
-                  -
-                </button>
-                {keyVal[1]}
-                <button
-                  onClick={() => {
-                    setChosenItems({ ...chosenItems, [keyVal[0]]: keyVal[1] + 1 });
-                  }}
-                >
-                  +
-                </button>
-              </li>
-            ))}
+          {chosenItemsArray.map((keyVal, index) => (
+            <li key={index}>
+              {keyVal[0]}
+              <button
+                onClick={() => {
+                  setChosenItems({ ...chosenItems, [keyVal[0]]: keyVal[1] - 1 });
+                }}
+              >
+                -
+              </button>
+              {keyVal[1]}
+              <button
+                onClick={() => {
+                  setChosenItems({ ...chosenItems, [keyVal[0]]: keyVal[1] + 1 });
+                }}
+              >
+                +
+              </button>
+            </li>
+          ))}
         </ul>
-        <button onClick={() => sendDataToDB(chosenItems)}>Submit</button>
+        <button onClick={() => updateUserBoughtList(chosenItems)}>Submit</button>
       </div>
 
       <Footer>
