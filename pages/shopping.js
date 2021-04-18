@@ -31,9 +31,9 @@ export default function Home({ genericFoodList }) {
 
   const { user, loading } = useAuth();
 
-  if (!user) {
-    typeof window !== "undefined" && Router.push("/signup");
-  }
+  // if (!user) {
+  //   typeof window !== "undefined" && Router.push("/signup");
+  // }
 
   return (
     <div className='mainCont'>
@@ -81,7 +81,7 @@ export default function Home({ genericFoodList }) {
             </li>
           ))}
         </ul>
-        <button onClick={() => updateUserBoughtList(chosenItems)}>Submit</button>
+        <button onClick={() => updateUserBoughtList(user.uid, chosenItems)}>Submit</button>
       </div>
       <Footer>
         <Link href='/'>
