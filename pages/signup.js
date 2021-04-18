@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { authContext, useAuth } from "../src/useAuth";
 import Router from "next/router";
 import styles from "../styles/Signup.module.css";
-import Link from "next/Link";
+import Link from "next/link";
 
 export default function Signup() {
   const { signup } = useAuth();
