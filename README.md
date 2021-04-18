@@ -4,11 +4,11 @@
 
 ## Team
 
-*[Khadija](https://github.com/khadija-nur)
-*[Ephie](https://github.com/ephieo)
-*[Jihyun](https://github.com/Jihyun-Jang)
-*[My Hoa](https://github.com/mhtien)
-*[Shaya](https://github.com/fairyaksh)
+- [Khadija](https://github.com/khadija-nur)
+- [Ephie](https://github.com/ephieo)
+- [Jihyun](https://github.com/Jihyun-Jang)
+- [My Hoa](https://github.com/mhtien)
+- [Shaya](https://github.com/fairyaksh)
 
 ## Inspiration
 
