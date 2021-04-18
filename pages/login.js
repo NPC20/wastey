@@ -8,7 +8,6 @@ export default function Signup() {
   const { signin } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   return (
     <div className={styles.login__box}>
       <h2>Signup</h2>

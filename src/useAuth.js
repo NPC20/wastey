@@ -2,11 +2,8 @@ import React, { useState, useEffect, useContext, createContext } from "react";
 // import * as firebase from "firebase/app";
 import { auth, app, db } from "./connection";
 
-export async function createUser(uid, data) {
-  return await db
-    .collection("users")
-    .doc(uid)
-    .set({ uid, ...data }, { merge: true });
+export async function createUser(uid) {
+  return await db.collection("users").doc(uid).set({ uid }, { merge: true });
 }
 
 export const authContext = createContext();
@@ -31,7 +28,7 @@ function useProvideAuth() {
     if (rawUser) {
       // const currentUser = auth().currentUser;
       // const { user, loading } = useAuth();
-      // createUser(user.uid, userWithoutToken);
+      createUser(user.uid);
       setUser(rawUser);
 
       setLoading(false);

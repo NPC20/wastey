@@ -8,6 +8,10 @@ import { Footer } from "./../src/styledComponents/reusables";
 import { useAuth } from "../src/useAuth";
 
 export async function getStaticProps() {
+  //  for My Hoa <3
+  const { user } = useAuth();
+  const userId = user.uid;
+
   try {
     const updateFoodList = await updateGenericFoodList();
     const genericFoodList = await getGenericFoodList();
