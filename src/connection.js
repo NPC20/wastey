@@ -14,7 +14,7 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID,
 };
 
-let app;
+export let app;
 if (!firebase.apps.length) {
   app = firebase.initializeApp(firebaseConfig);
 } else {
