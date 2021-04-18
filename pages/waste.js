@@ -1,11 +1,12 @@
 import { useState, useEffect, useMemo } from "react";
+import Router from "next/router";
+import Link from 'next/link';
+import Image from 'next/image';
+import Footer from "../components/Footer";
 import { getUserWasteFoodList, updateUserWasteList } from "../src/foodData";
 import { convertObjectToNestArray } from "../src/utils";
-import Link from "next/link";
-import Image from "next/image";
-import { HomeTabs, Footer } from "./../src/styledComponents/reusables";
+import { convertObjectToNestArray } from "../src/utils";
 import { useAuth } from "../src/useAuth";
-import Router from "next/router";
 
 export default function Home() {
   const [wasteItems, setWasteItems] = useState();
@@ -73,15 +74,7 @@ export default function Home() {
       >
         Update Waste List
       </button>
-
-      <Footer>
-        <Link href='/'>
-          <Image src='/homeButton.svg' alt='img' width={100} height={100} layout='fixed' />
-        </Link>
-        <Link href='/'>
-          <Image src='/logoutButton.svg' alt='img' width={100} height={100} layout='fixed' />
-        </Link>
-      </Footer>
+        <Footer />
     </div>
   );
 }

@@ -1,12 +1,17 @@
 import { useState } from "react";
-
-import { updateGenericFoodList, getGenericFoodList, updateUserBoughtList } from "../src/foodData";
 import Link from "next/link";
 import Router from "next/router";
 import Image from "next/image";
-import { Footer } from "./../src/styledComponents/reusables";
+import Footer from "../components/Footer";
+import HomeBtn from '../components/HomeBtn';
+import LogoutBtn from '../components/LogoutBtn';
 import { useAuth } from "../src/useAuth";
 import { convertObjectToNestArray } from "../src/utils";
+import {
+  updateGenericFoodList,
+  getGenericFoodList,
+  sendDataToDB,
+} from "../src/foodData";
 
 export async function getStaticProps() {
   try {
@@ -78,13 +83,12 @@ export default function Home({ genericFoodList }) {
         </ul>
         <button onClick={() => updateUserBoughtList(user.uid, chosenItems)}>Submit</button>
       </div>
-
       <Footer>
         <Link href='/'>
-          <Image src='/homeButton.svg' alt='img' width={100} height={100} layout='fixed' />
+          <HomeBtn />
         </Link>
-        <Link href='/'>
-          <Image src='/logoutButton.svg' alt='img' width={100} height={100} layout='fixed' />
+        <Link href='/' onClick={() => signout()}>
+          <LogoutBtn/>
         </Link>
       </Footer>
     </div>
