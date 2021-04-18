@@ -38,6 +38,8 @@ export function getGenericFoodList() {
 export function sendDataToDB(itemsChosen) {
   return db
     .collection("users")
+    .doc("001")
+    .collection("food")
     .doc("week1")
     .set(itemsChosen)
     .then(() => {

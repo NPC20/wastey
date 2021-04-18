@@ -1,10 +1,10 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 
 import { updateGenericFoodList, getGenericFoodList, sendDataToDB } from "../src/foodData";
 import Link from "next/link";
 import Router from "next/router";
 import Image from "next/image";
-import { HomeTabs, Footer } from "./../src/styledComponents/reusables";
+import { Footer } from "./../src/styledComponents/reusables";
 import { useAuth } from "../src/useAuth";
 
 export async function getStaticProps() {
@@ -56,7 +56,24 @@ export default function Home({ genericFoodList }) {
           {Object.keys(chosenItems)
             .map(key => [key, chosenItems[key]])
             .map((keyVal, index) => (
-              <li key={index}>{keyVal[0]}</li>
+              <li key={index}>
+                {keyVal[0]}
+                <button
+                  onClick={() => {
+                    setChosenItems({ ...chosenItems, [keyVal[0]]: keyVal[1] - 1 });
+                  }}
+                >
+                  -
+                </button>
+                {keyVal[1]}
+                <button
+                  onClick={() => {
+                    setChosenItems({ ...chosenItems, [keyVal[0]]: keyVal[1] + 1 });
+                  }}
+                >
+                  +
+                </button>
+              </li>
             ))}
         </ul>
         <button onClick={() => sendDataToDB(chosenItems)}>Submit</button>
