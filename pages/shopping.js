@@ -5,7 +5,6 @@ import Image from "next/image";
 import { Footer } from "./../src/styledComponents/reusables";
 import { useAuth } from "../src/useAuth";
 import { convertObjectToNestArray } from "../src/utils";
-import { updateGenericFoodList, getGenericFoodList, updateUserBoughtList } from "../src/foodData";
 import {
   updateGenericFoodList,
   getGenericFoodList,
