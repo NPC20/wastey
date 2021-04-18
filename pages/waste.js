@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { HomeTabs, Footer } from './../src/styledComponents/reusables';
+import Footer from "../components/Footer";
 import { useState } from "react";
 import { getUserWasteFoodList, updateUserWasteList } from "../src/foodData";
 import { convertObjectToNestArray } from "../src/utils";
@@ -66,27 +66,7 @@ export default function Home({ userWasteList }) {
       >
         Update Waste List
       </button>
-
-      {/* <Footer>
-        <Link href="/">
-          <Image
-            src="/homeButton.svg"
-            alt="img"
-            width={100}
-            height={100}
-            layout="fixed"
-          />
-        </Link>
-        <Link href="/">
-          <Image
-            src="/logoutButton.svg"
-            alt="img"
-            width={100}
-            height={100}
-            layout="fixed"
-          />
-        </Link>
-      </Footer> */}
+        <Footer />
     </div>
   );
 }

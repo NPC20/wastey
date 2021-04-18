@@ -2,7 +2,9 @@ import { useState } from "react";
 import Link from "next/link";
 import Router from "next/router";
 import Image from "next/image";
-import { Footer } from "./../src/styledComponents/reusables";
+import Footer from "../components/Footer";
+import HomeBtn from '../components/HomeBtn';
+import LogoutBtn from '../components/LogoutBtn';
 import { useAuth } from "../src/useAuth";
 import { convertObjectToNestArray } from "../src/utils";
 import {
@@ -81,24 +83,14 @@ export default function Home({ genericFoodList }) {
         </ul>
         <button onClick={() => updateUserBoughtList(chosenItems)}>Submit</button>
       </div>
-
-      {/* <Footer>
-        <Link href="/">
-          <Image
-            src="/homeButton.svg"
-            alt="img"
-            width={100}
-            height={100}
-            layout="fixed"
-          />
       <Footer>
         <Link href='/'>
-          <Image src='/homeButton.svg' alt='img' width={100} height={100} layout='fixed' />
+          <HomeBtn />
         </Link>
-        <Link href='/'>
-          <Image src='/logoutButton.svg' alt='img' width={100} height={100} layout='fixed' />
+        <Link href='/' onClick={() => signout()}>
+          <LogoutBtn/>
         </Link>
-      </Footer> */}
+      </Footer>
     </div>
   );
 }

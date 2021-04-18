@@ -3,34 +3,25 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import Button from '../components/Button';
-import HomeBtn from '../components/HomeBtn';
-import LogoutBtn from '../components/LogoutBtn';
-import { HomeTabs, Footer } from './../src/styledComponents/reusables';
-import { useAuth } from "../src/useAuth";
+import Footer from "../components/Footer";
 
 export default function Home() {
-  const { signout } = useAuth();
 
   return (
     <div className="mainCont">
       <Image src='/profileImg.svg' alt='img' width={100} height={100} layout='fixed' />
-      <Link href='shopping'>
-        <HomeTabs>ADD ITEMS</HomeTabs>
+      <Link href='/shopping' passHref>
+        <Button>
+          add items
+        </Button>
       </Link>
-      <Link href='/waste'>
-        <HomeTabs>ADD WASTE</HomeTabs>
+      <Link href='/waste' passHref>
+        <Button>add waste</Button>
       </Link>
-      <Link href='/stats'>
-        <HomeTabs>STATS</HomeTabs>
+      <Link href='/stats'passHref >
+        <Button>stats</Button>
       </Link>
-      <Footer>
-        <Link href='/'>
-          <Image src='/homeButton.svg' alt='img' width={100} height={100} layout='fixed' />
-        </Link>
-        <Link href='/' onClick={() => signout()}>
-          <Image src='/logoutButton.svg' alt='img' width={100} height={100} layout='fixed' />
-        </Link>
-      </Footer>
+      <Footer />
     </div>
   );
 }
