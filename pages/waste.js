@@ -4,6 +4,7 @@ import { convertObjectToNestArray } from "../src/utils";
 import Link from "next/link";
 import Image from "next/image";
 import { HomeTabs, Footer } from "./../src/styledComponents/reusables";
+import styles from "../styles/shopping.module.css";
 
 export async function getStaticProps() {
   try {
@@ -31,11 +32,12 @@ export default function Home({ userWasteList }) {
         layout="fixed"
       />
       <h1>Wasted Food</h1>
-      <ul>
+      <ul className={styles.list}>
         {wasteItemArray.map((keyVal, index) => (
-          <li key={index}>
+          <li key={index} className={styles.listItem}>
             {keyVal[0]}
             <button
+              className={styles.qBtn}
               onClick={() => {
                 setWasteItems({
                   ...wasteItems,
@@ -47,6 +49,7 @@ export default function Home({ userWasteList }) {
             </button>
             {keyVal[1]}
             <button
+              className={styles.qBtn}
               onClick={() => {
                 setWasteItems({
                   ...wasteItems,
@@ -60,6 +63,7 @@ export default function Home({ userWasteList }) {
         ))}
       </ul>
       <button
+        className={styles.submitBtn}
         onClick={() => {
           updateUserWasteList(wasteItems);
         }}
