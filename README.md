@@ -13,10 +13,10 @@
 ## Inspiration
 
 We often don't realise how much waste we make a week. 
-If you think about how often you actually throw away half a loaf of bread,  some leftover baked beans or a stale pastry? The small amounts of waste become food bin mountains. 
-we don't actually consume how much we buy. 
-we thought that tracking waste would be a good way to be more mindful of what you buy and what you waste?
-what's more triggering than a very alarming number to represent how much money you actually waste away every week.  
+<br> If you think about how often you actually throw away half a loaf of bread,  some leftover baked beans or a stale pastry? The small amounts of waste become food bin mountains. 
+<br>We don't actually consume how much we buy. 
+<br>We thought that tracking waste would be a good way to be more mindful of what you buy and what you waste.
+<br>What's more triggering than a very alarming number to represent how much money you actually waste away every week?
 
 ## Tech Stack
 
