@@ -13,7 +13,7 @@ export default function Home() {
         layout="fixed"
       />
 
-      <Footer>
+      {/* <Footer>
         <Link href="/">
           <Image
             src="/homeButton.svg"
@@ -32,7 +32,7 @@ export default function Home() {
             layout="fixed"
           />
         </Link>
-      </Footer>
+      </Footer> */}
     </div>
   );
 }

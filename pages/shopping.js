@@ -63,7 +63,7 @@ export default function Home({ genericFoodList }) {
         <button onClick={() => sendDataToDB(chosenItems)}>Submit</button>
       </div>
 
-      <Footer>
+      {/* <Footer>
         <Link href="/">
           <Image
             src="/homeButton.svg"
@@ -82,7 +82,7 @@ export default function Home({ genericFoodList }) {
             layout="fixed"
           />
         </Link>
-      </Footer>
+      </Footer> */}
     </div>
   );
 }
