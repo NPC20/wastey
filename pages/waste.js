@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { getUserWasteFoodList, updateUserWasteList } from "../src/foodData";
 import { convertObjectToNestArray } from "../src/utils";
-import Link from "next/Link";
+import Link from "next/link";
 import Image from "next/image";
 import { HomeTabs, Footer } from "./../src/styledComponents/reusables";
 
@@ -32,13 +32,33 @@ export default function Home({ userWasteList }) {
       />
       <h1>Wasted Food</h1>
       <ul>
-        {wasteItemArray.map((itemAndQuantity, index) => (
-          <li key={index}>{itemAndQuantity[0]}</li>
+        {wasteItemArray.map((keyVal, index) => (
+          <li key={index}>
+            {keyVal[0]}
+            <button
+              onClick={() => {
+                setWasteItems({
+                  ...wasteItems,
+                  [keyVal[0]]: keyVal[1] - 1,
+                });
+              }}
+            >
+              -
+            </button>
+            {keyVal[1]}
+            <button
+              onClick={() => {
+                setWasteItems({
+                  ...wasteItems,
+                  [keyVal[0]]: keyVal[1] + 1,
+                });
+              }}
+            >
+              +
+            </button>
+          </li>
         ))}
       </ul>
-      <button onClick={() => setWasteItems({ ...wasteItems, tomatoes: 3 })}>
-        Add tomatoes
-      </button>
       <button
         onClick={() => {
           updateUserWasteList(wasteItems);

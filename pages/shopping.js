@@ -4,7 +4,7 @@ import {
   getGenericFoodList,
   sendDataToDB,
 } from "../src/foodData";
-import Link from "next/Link";
+import Link from "next/link";
 import Image from "next/image";
 import { HomeTabs, Footer } from "./../src/styledComponents/reusables";
 
@@ -22,6 +22,7 @@ export async function getStaticProps() {
 
 export default function Home({ genericFoodList }) {
   const [chosenItems, setChosenItems] = useState({});
+  const chosenItemsArray = convertObjectToNestArray(chosenItems);
 
   return (
     <div className="mainCont">
@@ -54,11 +55,32 @@ export default function Home({ genericFoodList }) {
           ))}
         </datalist>
         <ul>
-          {Object.keys(chosenItems)
-            .map((key) => [key, chosenItems[key]])
-            .map((keyVal, index) => (
-              <li key={index}>{keyVal[0]}</li>
-            ))}
+          {chosenItemsArray.map((keyVal, index) => (
+            <li key={index}>
+              {keyVal[0]}
+              <button
+                onClick={() => {
+                  setChosenItems({
+                    ...chosenItems,
+                    [keyVal[0]]: keyVal[1] - 1,
+                  });
+                }}
+              >
+                -
+              </button>
+              {keyVal[1]}
+              <button
+                onClick={() => {
+                  setChosenItems({
+                    ...chosenItems,
+                    [keyVal[0]]: keyVal[1] + 1,
+                  });
+                }}
+              >
+                +
+              </button>
+            </li>
+          ))}
         </ul>
         <button onClick={() => sendDataToDB(chosenItems)}>Submit</button>
       </div>

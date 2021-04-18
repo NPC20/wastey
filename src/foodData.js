@@ -38,6 +38,8 @@ export function getGenericFoodList() {
 export function sendDataToDB(itemsChosen) {
   return db
     .collection("users")
+    .doc("001")
+    .collection("food")
     .doc("week1")
     .set(itemsChosen)
     .then(() => {
@@ -47,7 +49,11 @@ export function sendDataToDB(itemsChosen) {
       wasteItems.forEach((item) => {
         wasteDataObject[item] = 0;
       });
-      db.collection("users").doc("week1-waste").set(wasteDataObject);
+      db.collection("users")
+        .doc("001")
+        .collection("food")
+        .doc("week1-waste")
+        .set(wasteDataObject);
     })
     .then(() => {
       console.log("successfully created initial user waste food list");
@@ -60,10 +66,13 @@ export function sendDataToDB(itemsChosen) {
 export function getUserWasteFoodList() {
   return db
     .collection("users")
+    .doc("001")
+    .collection("food")
     .doc("week1-waste")
     .get()
     .then((doc) => {
       if (doc.exists) {
+        console.log(doc.data());
         return doc.data();
       } else {
         console.log("no such document!");
@@ -77,6 +86,8 @@ export function getUserWasteFoodList() {
 export function updateUserWasteList(updatedWasteList) {
   return db
     .collection("users")
+    .doc("001")
+    .collection("food")
     .doc("week1-waste")
     .set(updatedWasteList)
     .then(() => {
