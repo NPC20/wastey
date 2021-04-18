@@ -8,8 +8,6 @@ export default function Signup() {
   const { signin } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  console.log(error);
 
   return (
     <div className={styles.login__box}>

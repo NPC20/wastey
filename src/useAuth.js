@@ -28,15 +28,10 @@ function useProvideAuth() {
   const [user, setUser] = useState(null);
 
   const handleUser = async rawUser => {
-    console.log("handleUser called", new Date());
-    console.log("raw user", rawUser);
     if (rawUser) {
       // const currentUser = auth().currentUser;
       // const { user, loading } = useAuth();
-      // console.log(user);
       // createUser(user.uid, userWithoutToken);
-      console.log("user set");
-      console.log(rawUser);
       setUser(rawUser);
 
       setLoading(false);
@@ -64,13 +59,10 @@ function useProvideAuth() {
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .then(response => {
-        console.log(response);
-
         handleUser(response.user);
         window.location.href = "/";
       })
       .catch(e => {
-        setError(e);
         console.log(e);
       });
   };
@@ -107,7 +99,6 @@ function useProvideAuth() {
   //   const unsubscribe = () =>
   app.auth().onAuthStateChanged(user => {
     if (user) {
-      console.log("we got to set user!!");
       setUser(user);
     } else {
       setUser(false);

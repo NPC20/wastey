@@ -4,29 +4,12 @@ import Router from "next/router";
 import styles from "../styles/Signup.module.css";
 import Link from "next/Link";
 
-// export async function getStaticProps() {
-//   try {
-//     return {
-//       props: { signup },
-//     };
-//   } catch (e) {
-//     console.log("uh oh", e);
-//     return;
-//   }
-// }
-
 export default function Signup() {
   const { signup } = useAuth();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  console.log(error);
-  const { user, loading } = useAuth();
-
-  // if (user) {
-  //   typeof window !== "undefined" && Router.push("/shopping");
-  // }
 
   return (
     <div className={styles.login__box}>
